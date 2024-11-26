@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const productSchema = mongoose.Schema({
+const productsSchema = mongoose.Schema({
 
     image: String,
     name: String,
@@ -16,4 +16,4 @@ const productSchema = mongoose.Schema({
 
 })
 
-module.exports = mongoose.model('product', productSchema) 
+module.exports = mongoose.model('product', productsSchema) 
