@@ -6,12 +6,16 @@ module.exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    if (!email || !password) {
+      req.flash("error", "All Fields are required to be filled");
+      return res.redirect("/");
+    }
+
     const user = await usersModel.findOne({ email });
-    console.log(user);
-    console.log(email);
 
     if (!user) {
-      return res.status(404).json({ message: "User doesn't exist" });
+      req.flash("error", "User doesn't exist");
+      res.redirect("/");
     } else {
       const isMatched = await bcrypt.compare(password, user.password);
 
@@ -20,11 +24,11 @@ module.exports.loginUser = async (req, res) => {
       if (isMatched) {
         const token = generateToken(user);
         res.cookie("token", token);
-        return res.status(201).json({ message: "User logged in successfully" });
+        res.redirect("/shop");
+        // return res.status(201).json({ message: "User logged in successfully" });
       } else {
-        res.status(401).json({
-          message: "Password doesn't match",
-        });
+        req.flash("error", "Password doesn't Match");
+        res.redirect("/");
       }
     }
   } catch (error) {

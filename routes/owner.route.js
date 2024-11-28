@@ -3,7 +3,7 @@ const router = express.Router();
 
 const ownerModel = require("../models/owner.model");
 
-router.post("/create", async (req, res) => {
+router.post("/create/admin", async (req, res) => {
   try {
     const { fullname, email, password } = req.body;
     let owners = await ownerModel.find();
@@ -26,6 +26,11 @@ router.post("/create", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error" });
   }
+});
+
+router.get("/admin", (req, res) => {
+  const success = req.flash("success");
+  res.render("createproducts", { success });
 });
 
 module.exports = router;

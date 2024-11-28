@@ -6,6 +6,9 @@ const {
 const {
   loginUser,
 } = require("../controllers/userControllers/loginUser.controller");
+const {
+  logoutUser,
+} = require("../controllers/userControllers/logoutUser.controller");
 router.get("/", (req, res) => {
   res.send("Users");
 });
@@ -13,4 +16,7 @@ router.get("/", (req, res) => {
 router.post("/register", registerUser);
 
 router.post("/login", loginUser);
+
+router.post("/logout", logoutUser);
+
 module.exports = router;

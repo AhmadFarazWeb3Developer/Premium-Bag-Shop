@@ -1,55 +1,134 @@
-<%- include('./partials/header') %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create New Product</title>
 
-    <% if(success.length>0){ %>
-        <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-blue-500">
-            <span class="inline-block mt-1 mb-1 text-white">
-                <%= success %>
-            </span>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="font-roboto bg-gray-50">
+    <%- include('./partials/header') %>
+     <% if(success.length>0){ %>
+    <div
+      class="absolute top-5 left-1/2 -translate-x-1/2 mt-1 -translate-y-1/2 px-4 py-2 rounded-md bg-green-500"
+    >
+      <span class="inline-block text-white"> <%= success %> </span>
+    </div>
+    <% } %>
+
+    <div class="min-h-screen flex flex-col">
+      <div class="container mx-auto px-6 py-12 flex flex-grow max-w-7xl">
+        <!-- Sidebar -->
+        <div
+          class="w-1/4 flex flex-col items-start p-6 bg-white shadow-md rounded-lg"
+        >
+          <div class="flex flex-col space-y-4">
+            <a
+              class="text-sm font-medium text-gray-800 hover:text-blue-500"
+              href=""
+              >All Products</a
+            >
+            <a
+              class="text-sm font-medium text-gray-800 hover:text-blue-500"
+              href=""
+              >Create new product</a
+            >
+          </div>
         </div>
-        <% } %>
 
-            <div class="min-h-screen flex flex-col">
-                <div class="container px-10 py-20 flex flex-grow">
-                    <div class="w-[25%] flex h-screen flex-col items-start">
-                        <div class="flex flex-col">
-                            <a class="block w-fit mb-2" href="">All Products</a>
-                            <a class="block w-fit mb-2" href="">Create new product</a>
-                        </div>
-                    </div>
-                    <main class="w-3/4 bg-white p-8 shadow ml-4">
-                        <h2 class="text-xl font-bold mb-4">Create New Product</h2>
-                        <form autocomplete="off" action="/products/create" method="post" enctype="multipart/form-data">
-                            <div class="mb-6">
-                                <h3 class="text-lg font-semibold mb-2">Product Details</h3>
-                                <div class="mb-4">
-                                    <label class="block mb-2 font-medium">Product Image</label>
-                                    <input name="image" type="file" class="py-2 px-4 rounded" value="Select File">
-                                </div>
-                                <div class="grid grid-cols-2 gap-4">
-                                    <input name="name" type="text" placeholder="Product Name"
-                                        class="border p-2 rounded w-full">
-                                    <input name="price" type="text" placeholder="Product Price"
-                                        class="border p-2 rounded w-full">
-                                    <input name="discount" type="text" placeholder="Discount Price"
-                                        class="border p-2 rounded w-full">
-                                </div>
-                            </div>
-
-                            <div>
-                                <h3 class="text-lg font-semibold mb-2">Panel Details</h3>
-                                <div class="grid grid-cols-2 gap-4">
-                                    <input name="bgcolor" type="text" placeholder="Background Color"
-                                        class="border p-2 rounded w-full">
-                                    <input name="panelcolor" type="text" placeholder="Panel Color"
-                                        class="border p-2 rounded w-full">
-                                    <input name="textcolor" type="text" placeholder="Text Color"
-                                        class="border p-2 rounded w-full">
-                                </div>
-                            </div>
-                            <input class="px-5 py-2 rounded mt-3 bg-blue-500 text-white" type="submit"
-                                value="Create New Product">
-                        </form>
-                    </main>
-                </div>
+        <!-- Main Content -->
+        <main class="w-3/4 bg-white p-8 shadow-md ml-6 rounded-lg">
+          <h2 class="text-xl font-semibold mb-6 text-gray-900">
+            Create New Product
+          </h2>
+          <form
+            autocomplete="off"
+            action="/product/create"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <!-- Product Details Section -->
+            <div class="mb-8">
+              <div class="mb-4">
+                <label class="block mb-2 text-sm font-medium text-gray-700"
+                  >Product Image</label
+                >
+                <input
+                  name="image"
+                  type="file"
+                  class="py-2 px-4 rounded border border-gray-300 hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  value="Select File"
+                />
+              </div>
+              <div class="grid grid-cols-2 gap-6">
+                <input
+                  name="name"
+                  type="text"
+                  placeholder="Product Name"
+                  class="border border-gray-300 p-3 rounded w-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <input
+                  name="price"
+                  type="text"
+                  placeholder="Product Price"
+                  class="border border-gray-300 p-3 rounded w-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <input
+                  name="discount"
+                  type="text"
+                  placeholder="Discount Price"
+                  class="border border-gray-300 p-3 rounded w-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
             </div>
-            <%- include('./partials/footer') %>
+
+            <!-- Panel Details Section -->
+            <div class="mb-8">
+              <h3 class="text-lg font-semibold mb-4 text-gray-700">
+                Panel Details
+              </h3>
+              <div class="grid grid-cols-2 gap-6">
+                <input
+                  name="bgColor"
+                  type="text"
+                  placeholder="Background Color"
+                  class="border border-gray-300 p-3 rounded w-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <input
+                  name="panelColor"
+                  type="text"
+                  placeholder="Panel Color"
+                  class="border border-gray-300 p-3 rounded w-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <input
+                  name="textColor"
+                  type="text"
+                  placeholder="Text Color"
+                  class="border border-gray-300 p-3 rounded w-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <input
+              class="px-6 py-3 rounded mt-6 bg-blue-500 text-white text-sm font-semibold cursor-pointer transition-colors duration-300 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              type="submit"
+              value="Create New Product"
+            />
+          </form>
+        </main>
+      </div>
+    </div>
+
+    <%- include('./partials/footer') %>
+  </body>
+</html>

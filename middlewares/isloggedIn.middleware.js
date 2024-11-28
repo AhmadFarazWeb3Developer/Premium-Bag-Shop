@@ -3,7 +3,9 @@ const userModel = require("../models/users.model");
 
 module.exports.isLoggedIn = async (req, res, next) => {
   if (!req.cookies.token) {
-    return res.send("Not Verified");
+    req.flash("error", "You need to login first");
+
+    return res.redirect("/");
   } else {
     try {
       const decoded = jwt.verify(req.cookies.token, process.env.JWT_SECRET_KEY);
@@ -12,12 +14,14 @@ module.exports.isLoggedIn = async (req, res, next) => {
         .select("-password");
 
       if (!user) {
-        return res.send("No user found. Login or register.");
+        // return res.redirect("No user found. Login or register.");
+        res.redirect("/");
       }
       req.user = user;
       next();
     } catch (error) {
-      return res.redirect("/");
+      req.flash("error", "You need to login first");
+      return res.redirect("/", { error });
     }
   }
 };

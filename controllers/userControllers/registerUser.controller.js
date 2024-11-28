@@ -6,12 +6,16 @@ module.exports.registerUser = async (req, res) => {
   try {
     const { fullname, email, password } = req.body;
 
+    if (!fullname || !email || !password) {
+      req.flash("error", "All Fields are required to be field");
+      return res.redirect("/");
+    }
+
     const user = await usersModel.findOne({ email });
 
     if (user) {
-      return res
-        .status(401)
-        .json({ message: "You are already registered, Please Login!" });
+      req.flash("error", "You are already registered, Please Login!");
+      res.redirect("/");
     }
 
     bcrypt.genSalt(12, (err, salt) => {
@@ -27,9 +31,10 @@ module.exports.registerUser = async (req, res) => {
           if (createdUser) {
             const token = generateToken(createdUser);
             res.cookie("token", token);
-            res
-              .status(201)
-              .json({ message: "User Registered  Successfully", createdUser });
+            res.redirect("/shop");
+            // res
+            //   .status(201)
+            //   .json({ message: "User Registered  Successfully", createdUser });
           }
         }
       });
